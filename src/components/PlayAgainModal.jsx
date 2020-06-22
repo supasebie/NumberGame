@@ -2,24 +2,31 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Icon, Modal } from 'semantic-ui-react';
 
-const PlayAgainModal = ({ gameIsDone, startNewGame, gamesWon, time }) => (
-  <Modal open={gameIsDone} closeOnDimmerClick={false}>
+const PlayAgainModal = (
+  {
+    gameStatus, onClick, gamesWon, time,
+  },
+) => (
+  <Modal open={gameStatus} closeOnDimmerClick={false}>
     <Modal.Header>Winner Winner Chicken Dinner</Modal.Header>
     <Modal.Content>
-      <p>You&apos;re the bestest</p>
-      <br />
+      <p>
+        You&apos;re the bestest
+      </p>
       <p>
         Games won&nbsp;
         {gamesWon}
       </p>
       <p>
-        You had {time}
+        You had&nbsp;
+        {time}
         &nbsp;
+        seconds
         remaining!
       </p>
     </Modal.Content>
     <Modal.Actions>
-      <Button onClick={() => startNewGame()}>
+      <Button onClick={() => onClick(gameStatus)}>
         <Icon name="check" />
       </Button>
     </Modal.Actions>
@@ -27,9 +34,9 @@ const PlayAgainModal = ({ gameIsDone, startNewGame, gamesWon, time }) => (
 );
 
 PlayAgainModal.propTypes = {
+  onClick: PropTypes.func.isRequired,
   time: PropTypes.number.isRequired,
-  gameIsDone: PropTypes.bool.isRequired,
-  startNewGame: PropTypes.func.isRequired,
+  gameStatus: PropTypes.bool.isRequired,
   gamesWon: PropTypes.number.isRequired,
 };
 

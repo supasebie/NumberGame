@@ -9,12 +9,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import PlayAgainModal from './PlayAgainModal';
 import GameOverBroModal from './GameOverBroModal';
 
-const Game = (props) => {
+const NumberGame = () => {
   const [stars, setStars] = useState(utils.random(1, 9));
   const [availableNumbers, setAvailableNumbers] = useState(utils.range(1, 9));
   const [candidateNumbers, setCandidateNumbers] = useState([]);
   const [gamesWon, setGamesWon] = useState(0);
-  const [seconds, setSeconds] = useState(20);
+  const [seconds, setSeconds] = useState(1);
   const gameOverToast = () => toast('uluz');
 
   useEffect(() => {
@@ -31,7 +31,6 @@ const Game = (props) => {
   }, [seconds]);
 
   const candidatesAreWrong = utils.sum(candidateNumbers) > stars;
-  const gameIsDone = availableNumbers.length === 0;
 
   // eslint-disable-next-line no-nested-ternary
   const gameStatus = availableNumbers.length === 0
@@ -78,16 +77,19 @@ const Game = (props) => {
   };
 
   const onFinishGameClick = () => {
+    increaseGamesWon();
     setAvailableNumbers([]);
   };
 
-  // const onPlayAgainClick = (props) => {
-  //   increaseGamesWon();
-  //   setStars(utils.random(1, 9));
-  //   setAvailableNumbers(utils.range(1, 9));
-  //   setCandidateNumbers([]);
-  //   props.startNewGame();
-  // };
+  const onPlayAgainClick = () => {
+    if (gameStatus === 'won') {
+      increaseGamesWon();
+    }
+    setStars(utils.random(1, 9));
+    setAvailableNumbers(utils.range(1, 9));
+    setCandidateNumbers([]);
+    setSeconds(20);
+  };
 
   return (
     <>
@@ -102,9 +104,9 @@ const Game = (props) => {
               ? (
                 <PlayAgainModal
                   gamesWon={gamesWon}
-                  gameIsDone={gameIsDone}
-                  onClick={props.startNewGame()}
                   time={seconds}
+                  gameStatus={gameStatus}
+                  onClick={onPlayAgainClick}
                 />
               )
               : gameStatus === 'active'
@@ -114,7 +116,12 @@ const Game = (props) => {
                     .map((starId) => <StarsRender starId={starId} key={starId} />)
                 )
                 : (
-                  <GameOverBroModal />
+                  <GameOverBroModal
+                    gameStatus={gameStatus}
+                    gamesWon={gamesWon}
+                    time={seconds}
+                    onClick={onPlayAgainClick}
+                  />
                 )}
           </Grid>
           <Grid columns={3}>
@@ -145,11 +152,6 @@ const Game = (props) => {
       </Grid>
     </>
   );
-};
-
-const NumberGame = () => {
-  const [gameId, setGameId] = useState(1);
-  return <Game key={gameId} startNewGame={() => setGameId(gameId + 1)} />;
 };
 
 export default NumberGame;

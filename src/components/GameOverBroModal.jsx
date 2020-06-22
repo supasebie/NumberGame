@@ -2,25 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Icon, Modal } from 'semantic-ui-react';
 
-const PlayAgainModal = ({ gameIsOverBro, onClick }) => (
-  <Modal open={gameIsOverBro} closeOnDimmerClick={false}>
+const GameOverBroModal = (
+  {
+    gameStatus, onClick,
+  },
+) => (
+  <Modal open={gameStatus} closeOnDimmerClick={false}>
     <Modal.Header>You suck dawg</Modal.Header>
     <Modal.Content>
       <p>gg</p>
       <br />
-      <p>Everyone hates you wretch</p>
+      <p>Try harder</p>
     </Modal.Content>
     <Modal.Actions>
-      <Button onClick={() => onClick()}>
+      <Button onClick={() => onClick(gameStatus)}>
         <Icon name="check" />
       </Button>
     </Modal.Actions>
   </Modal>
 );
 
-PlayAgainModal.propTypes = {
-  gameIsOverBro: PropTypes.func.isRequired,
+GameOverBroModal.propTypes = {
   onClick: PropTypes.func.isRequired,
+  gameStatus: PropTypes.string.isRequired,
 };
 
-export default PlayAgainModal;
+export default GameOverBroModal;
