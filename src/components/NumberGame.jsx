@@ -14,7 +14,7 @@ const NumberGame = () => {
   const [availableNumbers, setAvailableNumbers] = useState(utils.range(1, 9));
   const [candidateNumbers, setCandidateNumbers] = useState([]);
   const [gamesWon, setGamesWon] = useState(0);
-  const [seconds, setSeconds] = useState(1);
+  const [seconds, setSeconds] = useState(20);
   const gameOverToast = () => toast('uluz');
 
   useEffect(() => {

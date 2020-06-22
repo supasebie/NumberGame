@@ -8,11 +8,11 @@ const GameOverBroModal = (
   },
 ) => (
   <Modal open={gameStatus} closeOnDimmerClick={false}>
-    <Modal.Header>You suck dawg</Modal.Header>
+    <Modal.Header>You ran out of time! :(</Modal.Header>
     <Modal.Content>
-      <p>gg</p>
+      <p>Don&apos;t let that get you down.</p>
       <br />
-      <p>Try harder</p>
+      <p>It&apos;s never over, you just need to practice and try harder!</p>
     </Modal.Content>
     <Modal.Actions>
       <Button onClick={() => onClick(gameStatus)}>

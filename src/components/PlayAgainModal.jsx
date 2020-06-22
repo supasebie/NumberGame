@@ -15,7 +15,7 @@ const PlayAgainModal = (
       </p>
       <p>
         Games won&nbsp;
-        {gamesWon}
+        {gamesWon + 1}
       </p>
       <p>
         You had&nbsp;
